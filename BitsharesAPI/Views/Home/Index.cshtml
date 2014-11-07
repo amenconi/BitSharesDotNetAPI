@@ -1,0 +1,64 @@
+﻿@model BitsharesAPI.ViewModels.HomeViewModel
+
+@{
+    ViewBag.Title = "Bitshares API";
+}
+
+@section HeaderInformation {
+    <script type="text/javascript">
+        $(document).ready(function () {
+            //var command = "@Model.Command";
+            //var paramString = "@Model"
+            //alert(command);
+            @{
+                if (Model != null && Model.Command != null)
+                {
+                    @:var apiTestUrl = window.location.protocol + "//" + window.location.hostname + ":" + window.location.port + "/api/commands/" + "@Model.Command" + "?paramString=" + "@Model.ParamString";
+                    @:window.open(apiTestUrl, "_blank");
+                }
+            }
+        });
+    </script>
+    <style type="text/css">
+        .label {
+            color: black !important;
+        }
+    </style>
+}
+
+<div class="jumbotron">
+    <h1>Bitshares ASP.NET Web API</h1>
+    <p class="lead">This is an ASP.NET web api 2 test site for Bitshares.</p>
+</div>
+<div class="row">
+
+    <div class="col-md-6" style="font-size:22px;">
+        This API allows remote requests to a bitshares client instance.  To get some sample URIs and API request results fill in the bitshares command and parameter string below.  If command uses no parameters then leave parameters field blank.
+    </div>
+    <div class="col-md-6" style="color: black; text-align: center; border-left: 1px solid black;">
+        @using (Html.BeginForm())
+        {
+            <fieldset>
+                <legend>Bitshares API Tester</legend>
+
+                <div class="label">
+                    Client Command:
+                </div>
+                <div class="text-center">
+                    @Html.TextBoxFor(m => m.Command)
+                </div>
+
+                <div class="label">
+                    Parameter String:
+                </div>
+                <div class="text-center">
+                    @Html.TextBoxFor(m => m.ParamString)
+                </div>
+
+                <input type="submit" value="Test API" />
+            </fieldset>
+        }
+
+    </div>
+</div>
+
